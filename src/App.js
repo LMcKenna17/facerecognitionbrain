@@ -14,11 +14,11 @@ import './App.css';
 
 const particlesOptions = {
   particles: {
-    line_linked: {
-      shadow: {
+    number: {
+      value: 30,
+      density: {
         enable: true,
-        coloer: "#3CA9D1",
-        blur: 5
+        value_area: 800
       }
     }
   }
@@ -93,7 +93,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    fetch('http://localhost:3000/imageUrl', {
+    fetch('https://young-headland-33225.herokuapp.com/imageUrl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -103,7 +103,7 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
       if (response){
-        fetch('http://localhost:3000/image', {
+        fetch('https://young-headland-33225.herokuapp.com/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -112,9 +112,8 @@ class App extends Component {
         })
         .then(response => response.json())
         .then(count => {
-          this.setState(Object.assign(this.state.user, {entries: count}))
+          this.setState(Object.assign(this.state.user, { entries: count}))
         })
-        .catch(console.log)
       }
       this.displayFaceBox(this.calculateFaceLocation(response))
     })
